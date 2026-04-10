@@ -1,5 +1,3 @@
-const NotFound = () => {
-  return <h1 style={{ textAlign: 'center' }}>404 - Not Found</h1>
+export default function NotFound() {
+  return <h2 className="center">404 Not Found</h2>
 }
-
-export default NotFound

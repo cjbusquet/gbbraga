@@ -1,12 +1,39 @@
-const fetchData = async () => {
-  const { data: user } = await supabase.auth.getUser()
+import { useEffect, useState } from 'react'
+import { supabase } from '../supabaseClient'
+import Navbar from '../components/Navbar'
 
-  const { data, error } = await supabase
-    .from('profiles')
-    .select('*')
-    .eq('id', user.user.id)
-    .single()
+export default function Dashboard() {
+  const [profile, setProfile] = useState(null)
 
-  if (error) console.error(error)
-  else setData([data])
+  useEffect(() => {
+    load()
+  }, [])
+
+  const load = async () => {
+    const { data: userData } = await supabase.auth.getUser()
+
+    const { data } = await supabase
+      .from('profiles')
+      .select('*')
+      .eq('id', userData.user.id)
+      .single()
+
+    setProfile(data)
+  }
+
+  return (
+    <>
+      <Navbar />
+
+      <div className="center">
+        <h2>Dashboard</h2>
+
+        {profile ? (
+          <p>Welcome {profile.email}</p>
+        ) : (
+          <p>Loading profile...</p>
+        )}
+      </div>
+    </>
+  )
 }

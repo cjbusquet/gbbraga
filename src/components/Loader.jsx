@@ -1,9 +1,3 @@
-const Loader = () => {
-  return (
-    <div style={{ textAlign: 'center', marginTop: '100px' }}>
-      <h2>Loading...</h2>
-    </div>
-  )
+export default function Loader() {
+  return <h2 className="center">Loading...</h2>
 }
-
-export default Loader

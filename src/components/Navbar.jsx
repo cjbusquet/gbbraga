@@ -1,30 +1,18 @@
 import { supabase } from '../supabaseClient'
-import { useAuth } from '../context/AuthContext'
 import { useNavigate } from 'react-router-dom'
 
-const Navbar = () => {
-  const { user } = useAuth()
+export default function Navbar() {
   const navigate = useNavigate()
 
-  const handleLogout = async () => {
+  const logout = async () => {
     await supabase.auth.signOut()
     navigate('/login')
   }
 
   return (
-    <nav style={{ padding: '10px', background: '#222', color: '#fff' }}>
-      <span>My App</span>
-
-      {user && (
-        <button
-          onClick={handleLogout}
-          style={{ float: 'right', cursor: 'pointer' }}
-        >
-          Logout
-        </button>
-      )}
-    </nav>
+    <div className="nav">
+      <h3>SaaS App</h3>
+      <button onClick={logout}>Logout</button>
+    </div>
   )
 }
-
-export default Navbar
